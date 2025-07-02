@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CatService } from 'src/app/services/cat/cat.service';
+import { PlantService } from 'src/app/services/plant/plant.service';
 
 @Component({
   selector: 'app-most-searched',
@@ -7,16 +7,16 @@ import { CatService } from 'src/app/services/cat/cat.service';
 })
 
 export class MostSearchedComponent {
-  cats: any;
+  plants: any;
   showLoader: boolean = true;
 
-  constructor(private catService: CatService) { }
+  constructor(private plantService: PlantService) { }
 
   ngOnInit(): void {
     this.showLoader = true;
 
-    this.catService.getCats(10).subscribe(data => {
-      this.cats = data;
+    this.plantService.getPlants(10).subscribe(data => {
+      this.plants = data;
       this.showLoader = false;
      })
   }

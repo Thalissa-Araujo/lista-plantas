@@ -16,7 +16,7 @@ import { AppComponent } from './app.component';
 import { LoaderModule } from './components/loader/loader.module';
 
 // Renomeie este módulo para LatestPlantsModule quando fizer a mudança
-//import { LatestCatsModule } from './components/latest-cats/latest-cats.module';
+import { LatestPlantsModule } from './components/latest-plants/latest-plants.module';
 
 @NgModule({
   declarations: [
@@ -27,7 +27,7 @@ import { LoaderModule } from './components/loader/loader.module';
     LoaderModule,
     AppRoutingModule,
     ComponentsModule,
-    //LatestCatsModule,
+    LatestPlantsModule,
     HttpClientModule,
     FormsModule,
     BrowserAnimationsModule,
