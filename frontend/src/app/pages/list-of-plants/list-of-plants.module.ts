@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { PlantListPageRoutingModule } from './list-of-plants.routing.module';
 
 import { PlantListComponent } from './list-of-plants.component';
+import { LatestPlantsModule } from '../../components/latest-plants/latest-plants.module';
 
 @NgModule({
   declarations: [
@@ -10,7 +11,8 @@ import { PlantListComponent } from './list-of-plants.component';
   ],
   imports: [
     CommonModule,
-    PlantListPageRoutingModule
+    PlantListPageRoutingModule,
+    LatestPlantsModule
   ]
 })
 
