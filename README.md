@@ -12,7 +12,7 @@ Thalissa Araujo
 
 # Vídeo do nosso projeto funcionando:
 
-[![Assista ao Video](./lista-plantas/video/thumbnail.png)](./lista-plantas/video/video_apresentação.mp4)
+[![Assista ao Video](./video/thumbnail.png)](./video/video_apresentação.mp4)
 
 
 # 🌿 Plant API Backend (Laravel)
