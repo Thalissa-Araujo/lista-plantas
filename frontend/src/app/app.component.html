@@ -1,14 +1,21 @@
 <div class="min-h-full">
-  <!-- Menu lateral / Side-bar -->
-  <app-menu [offsetMenu]="emitMenu" (offsetMenuEvent)="getEmit($event)"></app-menu>
 
-  <div class="lg:pl-64 flex flex-col flex-1">
-    <!-- Header / Cabeçalho -->
-    <app-header (offsetMenuEvent)="getEmit($event)"></app-header>
+  <ng-container *ngIf="!isAuthPage()">
+    <app-menu [offsetMenu]="emitMenu" (offsetMenuEvent)="getEmit($event)"></app-menu>
 
-    <main class="flex-1 p-12">
-      <app-latest-plants></app-latest-plants>
-      <router-outlet></router-outlet>
-    </main>
-  </div>
+    <div class="lg:pl-64 flex flex-col flex-1">
+      <app-header (offsetMenuEvent)="getEmit($event)"></app-header>
+
+      <main class="flex-1 p-12">
+        <app-latest-plants></app-latest-plants>
+        <router-outlet></router-outlet>
+      </main>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="isAuthPage()">
+    <router-outlet></router-outlet>
+  </ng-container>
+
 </div>
+

@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from "@angular/forms";
 import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClientXsrfModule  } from '@angular/common/http';
 
 // Angular Material Modules
 import { MatButtonModule } from '@angular/material/button';
@@ -14,13 +14,12 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
 import { ComponentsModule } from './components/components.module';
 import { AppComponent } from './app.component';
 import { LoaderModule } from './components/loader/loader.module';
-
 // Renomeie este módulo para LatestPlantsModule quando fizer a mudança
 //import { LatestPlantsModule } from './components/latest-plants/latest-plants.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -29,6 +28,10 @@ import { LoaderModule } from './components/loader/loader.module';
     ComponentsModule,
     //LatestPlantsModule,
     HttpClientModule,
+    HttpClientXsrfModule.withOptions({
+    cookieName: 'XSRF-TOKEN',
+    headerName: 'X-XSRF-TOKEN'
+    }),
     FormsModule,
     BrowserAnimationsModule,
     LoaderModule,

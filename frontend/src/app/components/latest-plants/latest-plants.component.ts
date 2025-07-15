@@ -20,14 +20,27 @@ export class LatestPlantsComponent implements OnInit {
   loadPlants(): void {
     this.showLoader = true;
     this.plantService.getPlants(this.limit).subscribe({
-      next: (data) => {
-        this.plants = data?.data || data || [];
+      next: (plants) => {
+        console.log('Plants loaded:', plants); // Para debug
+        this.plants = plants;
         this.showLoader = false;
       },
       error: (err) => {
         console.error('Error loading plants:', err);
+        this.plants = [];
         this.showLoader = false;
       }
     });
   }
+getImageUrl(plant: any): string {
+  if (plant.image_url && plant.image_url.startsWith('/storage')) {
+    const parts = plant.image_url.split('/');
+    const filename = parts[parts.length - 1];
+    return `http://localhost:8000/images/plants/${filename}`;
+  }
+  if (plant.default_image?.regular_url) {
+    return plant.default_image.regular_url;
+  }
+  return 'assets/fallback.jpg';
+}
 }

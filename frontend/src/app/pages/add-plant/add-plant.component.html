@@ -1,0 +1,136 @@
+<div class="min-h-full py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-3xl mx-auto">
+    <div class="bg-white p-8 rounded-xl shadow-lg">
+      <div class="text-center mb-8">
+        <h1 class="text-3xl font-bold text-gray-900">Cadastrar Nova Planta</h1>
+        <p class="mt-2 text-sm text-gray-600">Preencha os detalhes da planta abaixo</p>
+      </div>
+
+      <form [formGroup]="plantForm" (ngSubmit)="onSubmit()" class="space-y-6">
+        <!-- Nome Comum -->
+        <div>
+          <label for="common_name" class="block text-sm font-medium text-gray-700">Nome Comum *</label>
+          <input
+            id="common_name"
+            type="text"
+            formControlName="common_name"
+            class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
+            placeholder="Ex: Rosa, Suculenta, Samambaia">
+          <div *ngIf="plantForm.get('common_name')?.invalid && plantForm.get('common_name')?.touched" 
+               class="mt-1 text-sm text-red-600">
+            Nome comum é obrigatório
+          </div>
+        </div>
+
+        <!-- Nome Científico -->
+        <div>
+          <label for="scientific_name" class="block text-sm font-medium text-gray-700">Nome Científico *</label>
+          <input
+            id="scientific_name"
+            type="text"
+            formControlName="scientific_name"
+            class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
+            placeholder="Ex: Rosa spp., Echeveria elegans">
+          <div *ngIf="plantForm.get('scientific_name')?.invalid && plantForm.get('scientific_name')?.touched" 
+               class="mt-1 text-sm text-red-600">
+            Nome científico é obrigatório
+          </div>
+        </div>
+
+        <!-- Família -->
+        <div>
+          <label for="family" class="block text-sm font-medium text-gray-700">Família *</label>
+          <input
+            id="family"
+            type="text"
+            formControlName="family"
+            class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
+            placeholder="Ex: Rosaceae, Crassulaceae">
+        </div>
+
+        <!-- Gênero -->
+        <div>
+          <label for="genus" class="block text-sm font-medium text-gray-700">Gênero *</label>
+          <input
+            id="genus"
+            type="text"
+            formControlName="genus"
+            class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
+            placeholder="Ex: Rosa, Echeveria">
+        </div>
+
+        <!-- Observações -->
+        <div>
+          <label for="observations" class="block text-sm font-medium text-gray-700">Observações</label>
+          <textarea
+            id="observations"
+            formControlName="observations"
+            rows="3"
+            class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
+            placeholder="Onde a planta pode ser encontrada, características especiais..."></textarea>
+        </div>
+
+        <!-- Imagem -->
+        <div>
+          <label for="image" class="block text-sm font-medium text-gray-700">Imagem *</label>
+          <div class="mt-1 flex items-center">
+            <input
+              id="image"
+              type="file"
+              (change)="onFileChange($event)"
+              accept="image/*"
+              class="focus:outline-none">
+          </div>
+          <div *ngIf="previewImage" class="mt-2">
+            <img [src]="previewImage" alt="Preview" class="h-32 rounded-md">
+          </div>
+          <div *ngIf="plantForm.get('image')?.invalid && plantForm.get('image')?.touched" 
+               class="mt-1 text-sm text-red-600">
+            Imagem é obrigatória
+          </div>
+        </div>
+
+        <!-- Sinônimos -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Sinônimos</label>
+          <div formArrayName="synonyms">
+            <div *ngFor="let synonym of synonyms.controls; let i = index" class="mt-2 flex">
+              <input
+                [formControlName]="i"
+                class="block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
+                placeholder="Nome alternativo">
+              <button
+                type="button"
+                (click)="removeSynonym(i)"
+                class="ml-2 inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-red-700 bg-red-100 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                Remover
+              </button>
+            </div>
+          </div>
+          <button
+            type="button"
+            (click)="addSynonym()"
+            class="mt-2 inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-green-700 bg-green-100 hover:bg-green-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+            Adicionar Sinônimo
+          </button>
+        </div>
+
+        <!-- Botões -->
+        <div class="pt-6 flex justify-end space-x-3">
+          <button
+            type="button"
+            [routerLink]="['/list-of-plants']"
+            class="inline-flex justify-center py-2 px-4 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+            Cancelar
+          </button>
+          <button
+            type="submit"
+            [disabled]="plantForm.invalid"
+            class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50 disabled:cursor-not-allowed">
+            Cadastrar Planta
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

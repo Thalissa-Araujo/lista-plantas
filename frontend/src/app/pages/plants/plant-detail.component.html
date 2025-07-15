@@ -1,8 +1,8 @@
-<div class="overflow-hidden" *ngIf="!showLoader">
+<div class="overflow-hidden" *ngIf="!showLoader && plant">
   <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex justify-between items-center mb-8">
       <h1 class="text-4xl font-extrabold tracking-tight text-gray-900">
-        <span class="block text-green-600">{{plant?.common_name || 'Plant'}}</span>
+        <span class="block text-green-600">{{plant?.common_name || 'Planta'}}</span>
       </h1>
       
       <div class="flex space-x-4">
@@ -22,34 +22,34 @@
       </div>
     </div>
 
-    <div class="lg:grid lg:grid-cols-2 lg:gap-8">
-      <div class="relative lg:row-start-1 lg:col-start-1">
-        <div class="aspect-w-3 aspect-h-2 rounded-lg overflow-hidden">
-          <img *ngIf="plant?.image_url" class="object-cover" [src]="plant.image_url" [alt]="plant.common_name">
-          <div *ngIf="!plant?.image_url" class="bg-gray-200 h-full flex items-center justify-center">
-            <span class="text-gray-500">Sem imagem disponível</span>
-          </div>
+  <div class="lg:grid lg:grid-cols-2 lg:gap-8">
+    <div class="relative lg:row-start-1 lg:col-start-1">
+      <div class="aspect-w-3 aspect-h-2 rounded-lg overflow-hidden">
+        <img *ngIf="plant.image_url" [src]="plant.image_url" [alt]="plant.common_name || 'Planta'">
+        <div *ngIf="!plant.image_url" class="bg-gray-200 h-full flex items-center justify-center">
+          <span class="text-gray-500">Sem imagem disponível</span>
         </div>
       </div>
+    </div>
 
-      <div class="mt-8 lg:mt-0 lg:col-start-2">
-        <div class="prose prose-lg text-gray-500">
-          <h3 class="text-gray-900">Informações</h3>
-          
-          <p><strong>Nome científico:</strong> <em>{{plant?.scientific_name}}</em></p>
-          <p><strong>Família:</strong> {{plant?.family}}</p>
-          <p><strong>Gênero:</strong> {{plant?.genus}}</p>
-          
-          <h3 class="text-gray-900 mt-6">Descrição</h3>
-          <p>{{plant?.observations || 'Nenhuma descrição disponível.'}}</p>
-          
-          <h3 class="text-gray-900 mt-6">Características</h3>
-          <ul>
-            <li *ngIf="plant?.growth_habit"><strong>Hábito de crescimento:</strong> {{plant.growth_habit}}</li>
-            <li *ngIf="plant?.flower_color"><strong>Cor da flor:</strong> {{plant.flower_color}}</li>
-            <li *ngIf="plant?.foliage_texture"><strong>Textura da folhagem:</strong> {{plant.foliage_texture}}</li>
+    <div class="mt-8 lg:mt-0 lg:col-start-2">
+      <div class="prose prose-lg text-gray-500">
+        <h3 class="text-gray-900">Informações</h3>
+        
+        <p><strong>Nome científico:</strong> {{ plant.scientific_name || 'Não disponível' }}</p>
+        <p><strong>Família:</strong> {{ plant.family || 'Não disponível' }}</p>
+        <p><strong>Gênero:</strong> {{ plant.genus || 'Não disponível' }}</p>
+        <p><strong>Observações:</strong> {{ plant.observations || 'Nenhuma descrição disponível.' }}</p>
+        
+        <p><strong>Sinônimos:</strong></p>
+        <div *ngIf="plant.synonyms?.length > 0; else noSynonyms">
+          <ul class="list-disc pl-5">
+            <li *ngFor="let synonym of plant.synonyms">{{ synonym }}</li>
           </ul>
         </div>
+        <ng-template #noSynonyms>
+          <p class="text-gray-400">Nenhum sinônimo registrado.</p>
+        </ng-template>
       </div>
     </div>
   </div>

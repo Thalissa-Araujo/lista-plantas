@@ -1,0 +1,10 @@
+<div class="p-4">
+  <h1>TESTE FAVORITOS</h1>
+  <p>Total de favoritos: {{ favorites.length }}</p>
+
+  <ul>
+    <li *ngFor="let fav of favorites">{{ fav.plant.common_name }}</li>
+  </ul>
+
+  <pre>{{ favorites | json }}</pre>
+</div>
