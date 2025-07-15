@@ -29,7 +29,8 @@ const routes: Routes = [
     }).catch(err => {
       console.error('Erro ao carregar módulo:', err);
       throw err;
-    })
+    }),
+    canActivate: [AuthGuard]
   },
   {
     path: ':id',

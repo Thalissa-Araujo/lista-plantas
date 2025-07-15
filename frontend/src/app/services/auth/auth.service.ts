@@ -22,11 +22,17 @@ export class AuthService {
   register(name: string, email: string, password: string): Observable<any> {
     return this.initializeCsrf().pipe(
       switchMap(() => {
+        const xsrfToken = this.getCookie('XSRF-TOKEN');
         return this.http.post(`${this.apiUrl}/register`, {
           name,
           email,
           password
-        }, { withCredentials: true });
+        }, {
+          withCredentials: true,
+          headers: {
+            'X-XSRF-TOKEN': xsrfToken ?? ''
+          }
+        });
       }),
       tap((user) => {
         this.storeUserData(user);
@@ -37,6 +43,7 @@ export class AuthService {
       })
     );
   }
+
 
   login(email: string, password: string): Observable<any> {
     return this.initializeCsrf().pipe(
