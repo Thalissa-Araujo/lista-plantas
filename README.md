@@ -47,7 +47,13 @@ cd backend/plant-api-backend
 composer install
 `````````````
 
-### 3. Rode o servidor de desenvolvimento:
+### 3. Crie o link simbólico para acesso público
+
+```bash
+php artisan storage:link
+``````````````
+
+### 4. Rode o servidor de desenvolvimento:
 ```bash
 php artisan serve
 ``````````````

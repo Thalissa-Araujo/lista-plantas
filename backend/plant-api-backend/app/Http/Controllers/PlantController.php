@@ -29,7 +29,7 @@ class PlantController extends Controller
 
     public function getPlant($id)
     {
-        // Primeiro verifica se é uma planta local
+        // Verifica se é uma planta local
         $localPlant = Plant::find($id);
         
         if ($localPlant) {
@@ -62,7 +62,6 @@ class PlantController extends Controller
                 ? ($plantData['family']['name'] ?? $plantData['main_species']['family'] ?? null)
                 : $plantData['family'];
 
-            // Extrai o nome do gênero (pode ser string ou objeto)
             $genus = is_array($plantData['genus']) 
                 ? ($plantData['genus']['name'] ?? $plantData['main_species']['genus']['name'] ?? null)
                 : $plantData['genus'];
@@ -104,7 +103,6 @@ class PlantController extends Controller
         $localPlantsRaw = Plant::latest()
             ->paginate($perPage, ['*'], 'local_page', $page);
 
-        // Converte os dados da paginação para array e formata o campo image_url
         $localPlants = $localPlantsRaw->getCollection()->map(function ($plant) {
             return [
                 'id' => $plant->id,

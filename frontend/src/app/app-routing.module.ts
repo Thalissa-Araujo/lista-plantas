@@ -35,17 +35,6 @@ const routes: Routes = [
   {
     path: ':id',
     loadChildren: () => import('./pages/plants/plants.module').then(m => m.PlantsModule)
-  },
-  {
-    path: 'favorites',
-    loadChildren: () => import('./pages/favorites/favorites.module').then(m => {
-      console.log('Módulo Favorites carregado com sucesso!', m);
-      return m.FavoritesModule;
-    }).catch(err => {
-      console.error('Erro ao carregar módulo:', err);
-      throw err;
-    }),
-    canActivate: [AuthGuard]
   }
 ];
 

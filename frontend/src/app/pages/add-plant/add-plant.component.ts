@@ -61,7 +61,6 @@ export class AddPlantComponent {
       const formData = new FormData();
       const formValue = this.plantForm.value;
 
-      // Adiciona campos simples
       formData.append('common_name', formValue.common_name);
       formData.append('scientific_name', formValue.scientific_name);
       formData.append('family', formValue.family);
@@ -69,7 +68,6 @@ export class AddPlantComponent {
       formData.append('observations', formValue.observations);
       formData.append('image', formValue.image);
 
-      // Adiciona sinônimos
       formValue.synonyms.forEach((synonym: string) => {
         if (synonym.trim() !== '') {
           formData.append('synonyms[]', synonym);

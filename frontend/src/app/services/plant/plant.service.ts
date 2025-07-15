@@ -143,19 +143,4 @@ export class PlantService {
       catchError(this.handleError)
     );
   }
-
-  getFavorites(): Observable<any[]> {
-    return of([
-      {
-        plant: {
-          id: '123',
-          common_name: 'Rosa Teste',
-          scientific_name: 'Rosa rubiginosa',
-          image_url: 'https://via.placeholder.com/150',
-          main_species: { id: 123 }
-        },
-        sourceType: 'trefle'
-      }
-    ]);
-  }
 }
